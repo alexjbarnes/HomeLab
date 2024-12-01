@@ -7,6 +7,8 @@ services:
       - data:/data
     ports:
       - 3000:3000
+    env_file:
+      - stack.env
     environment:
       MEILI_ADDR: http://meilisearch:7700
       BROWSER_WEB_URL: http://chrome:9222
@@ -24,6 +26,8 @@ services:
   meilisearch:
     image: getmeili/meilisearch:v1.11.1
     restart: unless-stopped
+    env_file:
+      - stack.env
     environment:
       MEILI_NO_ANALYTICS: "true"
     volumes:
