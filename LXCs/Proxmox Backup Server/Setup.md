@@ -3,11 +3,11 @@ Download Turnkey 12 core from CT templates
 Set up lxc
 
 2gb ram
-2cpu
+1cpu
 8gb root FS
 
 HDD 
-209gb local
+200gb local
 200gb NFS
 
 DNS 1.1.1.1
