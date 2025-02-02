@@ -20,7 +20,7 @@ services:
       - ${UPLOAD_LOCATION}:/usr/src/app/upload
       - /etc/localtime:/etc/localtime:ro
     env_file:
-      - .env
+      - stack.env
     ports:
       - '2283:2283'
     depends_on:
