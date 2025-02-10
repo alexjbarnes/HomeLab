@@ -12,16 +12,6 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
-    command: |
-      caddy run --config /etc/caddy/Caddyfile --adapter caddyfile << EOF
-      {
-          local_certs
-      }
-      portainer.homelab {
-          reverse_proxy 192.168.0.45:9443
-      }
-      EOF
-
 volumes:
   caddy_data:
   caddy_config:
