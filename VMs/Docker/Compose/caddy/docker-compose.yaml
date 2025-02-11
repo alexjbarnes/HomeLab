@@ -9,11 +9,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-     # - ./Caddyfile:/etc/caddy/Caddyfile
+      - config-cloner_config-repo:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
-    environment:
-      test: ${LATEST_COMPOSE_DIR:-$(ls -d /var/lib/docker/volumes/portainer_data/_data/compose/* | sort -n | tail -1)}
 volumes:
   caddy_data:
   caddy_config:
