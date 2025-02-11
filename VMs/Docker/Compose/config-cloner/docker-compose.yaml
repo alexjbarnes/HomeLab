@@ -1,0 +1,7 @@
+services:
+  git-clone:
+    image: alpine/git
+    volumes:
+      - shared-repo:/repo
+    command: clone https://github.com/alexjbarnes/HomeLab.git /repo
+    restart: "no"  # Run once and stop
