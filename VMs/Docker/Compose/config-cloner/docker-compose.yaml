@@ -2,8 +2,6 @@ services:
   git-clone:
     image: alpine/git
     volumes:
-      - config-repo:/repo
-    volumes:
       - type: bind
         source: /config-repo
         target: /repo
