@@ -3,8 +3,10 @@ services:
     image: alpine/git
     volumes:
       - config-repo:/repo
+    volumes:
+      - type: bind
+        source: /config-repo
+        target: /repo
+        read_only: false
     command: clone https://github.com/alexjbarnes/HomeLab.git /repo
     restart: "no"  # Run once and stop
-
-volumes:
-  config-repo:
