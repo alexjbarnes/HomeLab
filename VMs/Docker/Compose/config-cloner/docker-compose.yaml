@@ -6,5 +6,5 @@ services:
         source: /config-repo
         target: /repo
         read_only: false
-    command: rm -rf /repo/* && clone https://github.com/alexjbarnes/HomeLab.git /repo
+    command: clone https://github.com/alexjbarnes/HomeLab.git /repo
     restart: "no"  # Run once and stop
