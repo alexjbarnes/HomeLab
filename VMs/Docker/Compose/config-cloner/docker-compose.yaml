@@ -1,10 +1,10 @@
 services:
   git-clone:
-    image: alpine/git
+    image: cgr.dev/chainguard/wolfi-base
     volumes:
       - type: bind
         source: /config-repo
         target: /repo
         read_only: false
-    command: clone https://github.com/alexjbarnes/HomeLab.git /repo
+    command: apk add git && find /repo -mindepth 1 -exec rm -rf {} + && git clone https://github.com/alexjbarnes/HomeLab.git /repo
     restart: "no"  # Run once and stop
