@@ -11,7 +11,7 @@ services:
       - /jellyfin/config:/config
       - /jellyfin/cache:/cache
       - type: bind
-        source: /mnt/nfs
+        source: /mnt/media
         target: /media
    #   - type: bind
     #    source: /path/to/media2

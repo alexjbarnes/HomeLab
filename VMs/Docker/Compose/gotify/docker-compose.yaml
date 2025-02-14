@@ -7,3 +7,5 @@ services:
       - 8888:80
     volumes:
       - "./gotify_data:/app/data"
+    environment:
+      GOTIFY_DEFAULTUSER_PASS: ${PASSWORD}
