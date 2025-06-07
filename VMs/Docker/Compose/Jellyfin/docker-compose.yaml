@@ -13,14 +13,10 @@ services:
       - type: bind
         source: /mnt/media
         target: /media
-   #   - type: bind
-    #    source: /path/to/media2
-    #    target: /media2
-   #     read_only: true
     restart: 'unless-stopped'
-    # Optional - alternative address used for autodiscovery
-    environment:
-      - JELLYFIN_PublishedServerUrl=http://example.com
-    # Optional - may be necessary for docker healthcheck to pass if running in host network mode
     extra_hosts:
       - 'host.docker.internal:host-gateway'
+    deploy:
+      resources:
+        limits:
+          memory: 4g
