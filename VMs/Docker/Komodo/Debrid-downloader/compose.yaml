@@ -6,7 +6,7 @@ services:
     ports:
       - 3333:3000
     volumes:
-      - /debrid-downloader/database:/database
+      - debrid_db:/database
       - type: bind
         source: /mnt/media
         target: /media
@@ -14,3 +14,6 @@ services:
       DATABASE_PATH: /database/debrid.db
       BASE_DOWNLOADS_PATH: /media/
       ALLDEBRID_API_KEY: ${ALLDEBRID_API_KEY}
+
+volumes:
+  debrid_db:
