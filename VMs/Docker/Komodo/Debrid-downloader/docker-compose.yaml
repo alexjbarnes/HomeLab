@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  gotify:
+    image: ghcr.io/alexjbarnes/debrid-downloader:main
+    ports:
+      - 3000:3000
+    volumes:
+      - /debrid-downloader/database:/database
+      - type: bind
+        source: /mnt/media
+        target: /media
+    environment:
+      DATABASE_PATH: /database/debrid.db
+      BASE_DOWNLOADS_PATH: /media/
