@@ -4,7 +4,7 @@ services:
   debrid-downloader:
     image: ghcr.io/alexjbarnes/debrid-downloader:main
     ports:
-      - 3000:3000
+      - 3333:3000
     volumes:
       - /debrid-downloader/database:/database
       - type: bind
