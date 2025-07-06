@@ -13,3 +13,4 @@ services:
     environment:
       DATABASE_PATH: /database/debrid.db
       BASE_DOWNLOADS_PATH: /media/
+      ALLDEBRID_API_KEY: ${ALLDEBRID_API_KEY}
