@@ -15,6 +15,7 @@ services:
       DATABASE_PATH: /database/debrid.db
       BASE_DOWNLOADS_PATH: /media/
       ALLDEBRID_API_KEY: ${ALLDEBRID_API_KEY}
+      LOG_LEVEL: ${LOG_LEVEL}
 
 volumes:
   debrid_db:
