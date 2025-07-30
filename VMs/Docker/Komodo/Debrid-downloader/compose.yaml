@@ -11,6 +11,12 @@ services:
       - type: bind
         source: /mnt/media
         target: /media
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
     environment:
       DATABASE_PATH: /database/debrid.db
       BASE_DOWNLOADS_PATH: /media/
