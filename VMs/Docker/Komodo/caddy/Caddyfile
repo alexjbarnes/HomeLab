@@ -1,0 +1,8 @@
+{
+    # Enable automatic HTTPS with local certificates
+    local_certs
+}
+
+portainer.homelab {
+    reverse_proxy 192.168.0.137:9000
+}
