@@ -3,6 +3,34 @@
     local_certs
 }
 
-portainer.homelab {
+pve.local {
+    reverse_proxy 192.168.0.93:8006
+}
+
+pbs.local {
+    reverse_proxy 192.168.0.143:8007
+}
+
+portainer.local {
     reverse_proxy 192.168.0.137:9000
+}
+
+portainer.local {
+    reverse_proxy 192.168.0.137:9000
+}
+
+komodo.local {
+    reverse_proxy 192.168.0.137:9120
+}
+
+debrid.local {
+    reverse_proxy 192.168.0.137:3333
+}
+
+vikunja.local {
+    reverse_proxy 192.168.0.137:3456
+}
+
+pihole.local {
+    reverse_proxy 192.168.0.137:880
 }
