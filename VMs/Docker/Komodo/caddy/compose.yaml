@@ -10,7 +10,7 @@ services:
       - "443:443"
     volumes:
       - type: bind
-        source: /config-repo/VMs/Docker/Compose/caddy/Caddyfile
+        source: ./Caddyfile
         target: /etc/caddy/Caddyfile
         read_only: true
       - caddy_data:/data
