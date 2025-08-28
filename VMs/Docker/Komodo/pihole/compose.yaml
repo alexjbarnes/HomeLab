@@ -16,5 +16,4 @@ services:
       - type: bind
         source: ./custom.list
         target: /etc/pihole/custom.list
-        read_only: true
     restart: unless-stopped
