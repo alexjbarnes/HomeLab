@@ -8,7 +8,7 @@ services:
       - "67:67/udp"
       - "880:80/tcp"
     environment:
-      TZ: 'America/Chicago'
+      TZ: 'Europe/London'
     volumes:
       - './etc-pihole:/etc/pihole'
       - './etc-dnsmasq.d:/etc/dnsmasq.d'
