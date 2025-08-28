@@ -11,14 +11,6 @@ pbs.local {
     reverse_proxy 192.168.0.143:8007
 }
 
-portainer.local {
-    reverse_proxy 192.168.0.137:9000
-}
-
-portainer.local {
-    reverse_proxy 192.168.0.137:9000
-}
-
 komodo.local {
     reverse_proxy 192.168.0.137:9120
 }
