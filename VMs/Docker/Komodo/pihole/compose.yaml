@@ -8,12 +8,16 @@ services:
       - "67:67/udp"
       - "880:80/tcp"
     environment:
-      TZ: 'Europe/London'
-      FTLCONF_dns_listeningMode: 'all'
+      TZ: "Europe/London"
+      FTLCONF_dns_listeningMode: "all"
+      FTLCONF_misc_etc_dnsmasq_d: "true" # Enable dnsmasq.d directory
     volumes:
-      - './etc-pihole:/etc/pihole'
-      - './etc-dnsmasq.d:/etc/dnsmasq.d'
+      - "./etc-pihole:/etc/pihole"
+      - "./etc-dnsmasq.d:/etc/dnsmasq.d"
       - type: bind
         source: ./custom.list
         target: /etc/pihole/custom.list
+      - type: bind
+        source: ./custom-dns.conf
+        target: /etc/dnsmasq.d/02-custom-dns.conf
     restart: unless-stopped
