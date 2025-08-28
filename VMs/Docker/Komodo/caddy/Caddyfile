@@ -7,8 +7,11 @@ pve.local {
     reverse_proxy https://192.168.0.93:8006 {
         transport http {
             tls_insecure_skip_verify
-            tls_server_name pve1.home.arpa
         }
+        header_up X-Forwarded-Host pve.local
+        header_up X-Forwarded-Proto https
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Real-IP {remote_host}
     }
 }
 
