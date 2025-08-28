@@ -8,6 +8,7 @@ pve.local {
         transport http {
             tls_insecure_skip_verify
         }
+        header_up Host 192.168.0.93:8006
     }
 }
 pbs.local {
@@ -15,6 +16,7 @@ pbs.local {
         transport http {
             tls_insecure_skip_verify
         }
+        header_up Host 192.168.0.143:8007
     }
 }
 
