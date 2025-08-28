@@ -4,13 +4,23 @@
 }
 
 pve.local {
-    reverse_proxy {
-        to https://192.168.0.93:8006
+    reverse_proxy https://192.168.0.93:8006 {
         transport http {
             tls_insecure_skip_verify
         }
+
+        @redirect status 3xx
+        handle_response @redirect {
+            # Copy all headers except Location
+            copy_response_headers {
+                exclude Location
+            }
+            # Don't follow the redirect, just return 200
+            respond "Redirected" 200
+        }
     }
 }
+
 pbs.local {
     reverse_proxy {
         to https://192.168.0.143:8007
