@@ -4,11 +4,18 @@
 }
 
 pve.local {
-    reverse_proxy 192.168.0.93:8006
+    reverse_proxy https://192.168.0.93:8006 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
 }
-
 pbs.local {
-    reverse_proxy 192.168.0.143:8007
+    reverse_proxy https://192.168.0.143:8007 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
 }
 
 komodo.local {
