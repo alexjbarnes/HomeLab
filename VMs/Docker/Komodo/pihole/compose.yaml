@@ -9,8 +9,6 @@ services:
       - "880:80/tcp"
     environment:
       TZ: 'America/Chicago'
-      # WEBPASSWORD: 'set a secure password here or it will be random'
-      SERVERIP: '192.168.0.137'
     volumes:
       - './etc-pihole:/etc/pihole'
       - './etc-dnsmasq.d:/etc/dnsmasq.d'
