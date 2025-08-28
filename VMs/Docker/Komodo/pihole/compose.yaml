@@ -9,6 +9,7 @@ services:
       - "880:80/tcp"
     environment:
       TZ: 'Europe/London'
+      FTLCONF_dns_listeningMode: 'all'
     volumes:
       - './etc-pihole:/etc/pihole'
       - './etc-dnsmasq.d:/etc/dnsmasq.d'
