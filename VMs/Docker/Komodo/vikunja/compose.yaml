@@ -7,8 +7,8 @@ services:
     ports:
       - "3456:3456"
     volumes:
-      - vikunja:/app/vikunja/files
-      - vikunja:/db
+      - vikunja-data:/app/vikunja/files
+      - vikunja-data:/db
     environment:
       - VIKUNJA_SERVICE_ROOTPATH=/app/vikunja/
       - VIKUNJA_DATABASE_TYPE=sqlite
@@ -17,4 +17,4 @@ services:
     restart: always
 
 volumes:
-  vikunja:
+  vikunja-data:
