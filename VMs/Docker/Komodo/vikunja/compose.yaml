@@ -11,10 +11,12 @@ services:
       - vikunja:/db
     environment:
       - VIKUNJA_SERVICE_ROOTPATH=/app/vikunja/
+      - VIKUNJA_DATABASE_TYPE=sqlite
+      - VIKUNJA_DATABASE_PATH=/db/vikunja.db
+      - VIKUNJA_SERVICE_ENABLEREGISTRATION=true
       - PUID=1000
       - PGID=1000
     restart: always
 
 volumes:
   vikunja:
-    external: true
