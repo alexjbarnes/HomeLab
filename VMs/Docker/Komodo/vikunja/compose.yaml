@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  vikunja:
+    image: vikunja/vikunja:latest
+    container_name: Vikunja
+    ports:
+      - "3456:3456"
+    volumes:
+      - vikunja:/app/vikunja/files
+      - vikunja:/db
+    environment:
+      - VIKUNJA_SERVICE_ROOTPATH=/app/vikunja/
+      - PUID=1000
+      - PGID=1000
+    restart: always
+
+volumes:
+  vikunja:
+    external: true
