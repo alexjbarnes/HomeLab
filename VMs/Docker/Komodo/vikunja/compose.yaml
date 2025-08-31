@@ -14,6 +14,7 @@ services:
       - VIKUNJA_DATABASE_TYPE=sqlite
       - VIKUNJA_DATABASE_PATH=/db/vikunja.db
       - VIKUNJA_SERVICE_ENABLEREGISTRATION=true
+      - VIKUNJA_SERVICE_PUBLICURL=https://vikunja.local/
     restart: always
 
 volumes:
