@@ -17,7 +17,7 @@ services:
       - SYMFONY__ENV__FOSUSER_REGISTRATION=false
       - SYMFONY__ENV__SERVER_NAME=read.example.com
       - PGID=1000
-      - TZ=Europe/Berlin
+      - TZ=Europe/London
       - PUID=1000
     restart: unless-stopped
 
