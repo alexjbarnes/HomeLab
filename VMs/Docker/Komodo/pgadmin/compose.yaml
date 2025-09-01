@@ -10,8 +10,8 @@ services:
       - pgadmin_config:/pgadmin
       - pgadmin_data:/var/lib/pgadmin
     environment:
-      - PGADMIN_DEFAULT_EMAIL: ${DEFAULT_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD: ${DEFAULT_PASSWORD}
+      PGADMIN_DEFAULT_EMAIL: ${DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${DEFAULT_PASSWORD}
     restart: always
     user: pgadmin
 
