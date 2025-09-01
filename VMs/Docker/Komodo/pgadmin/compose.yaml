@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin_config:/pgadmin
+      - pgadmin_data:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${DEFAULT_PASSWORD}
+    restart: always
+    user: pgadmin
+
+volumes:
+  pgadmin_config:
+  pgadmin_data:
