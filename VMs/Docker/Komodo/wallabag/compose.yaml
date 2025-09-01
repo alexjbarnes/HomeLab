@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  wallabag:
+    image: wallabag/wallabag:latest
+    container_name: wallabag
+    ports:
+      - "8880:80"
+    volumes:
+      - wallabag_data:/var/www/wallabag/data
+      - wallabag_images:/var/www/wallabag/web/assets/images
+    environment:
+      - SYMFONY__ENV__TWOFACTOR_AUTH=false
+      - SYMFONY__ENV__DOMAIN_NAME=http://192.168.0.137:8880
+      - PHP_MEMORY_LIMIT=2048M
+      - SYMFONY__ENV__FOSUSER_CONFIRMATION=false
+      - SYMFONY__ENV__FOSUSER_REGISTRATION=false
+      - SYMFONY__ENV__SERVER_NAME=read.example.com
+      - PGID=1000
+      - TZ=Europe/Berlin
+      - PUID=1000
+    restart: unless-stopped
+
+volumes:
+  wallabag_data:
+  wallabag_images:
