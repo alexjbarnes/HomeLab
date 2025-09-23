@@ -3,6 +3,7 @@ version: "3"
 services:
   debrid-downloader:
     image: ghcr.io/alexjbarnes/debrid-downloader:main
+    restart: unless-stopped
     user: "1000:2000"
     ports:
       - 3333:3000
