@@ -14,21 +14,28 @@ services:
             - --disable-csrf-token-checks
             - --insecure
             - --address=0.0.0.0:51515
-            - --server-username=USERNAME
-            - --server-password=SECRET_PASSWORD
+            - --server-username=${USERNAME}
+            - --server-password=${PASSWORD}
         environment:
             # Set repository password
-            KOPIA_PASSWORD: "SECRET"
-            USER: "User"
+            KOPIA_PASSWORD: ${PASSWORD}
+            USER: ${USERNAME}
         volumes:
             # Mount local folders needed by kopia
-            - /path/to/config/dir:/app/config
-            - /path/to/cache/dir:/app/cache
-            - /path/to/logs/dir:/app/logs
+            - kopia_config:/app/config
+            - kopia_cache:/app/cache
+            - kopia_logs:/app/logs
             # Mount local folders to snapshot
-            - /path/to/data/dir:/data:ro
+            - /var/lib/docker/volumes:/data:ro
             # Mount repository location
-            - /path/to/repository/dir:/repository
+            - /mnt/sda1_backup:/repository
+            - /mnt/sdb1_backup:/repository
             # Mount path for browsing mounted snapshots
-            - /path/to/tmp/dir:/tmp:shared
-            
+            - /tmp:/tmp:shared
+
+    
+volumes:
+    kopia_config:
+    kopia_cache:
+    kopia_logs:
+        
