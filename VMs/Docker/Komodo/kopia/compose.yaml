@@ -28,10 +28,10 @@ services:
             # Mount local folders to snapshot
             - /var/lib/docker/volumes:/data:ro
             # Mount repository location
-            - /mnt/sda1_backup:/repository
-            - /mnt/sdb1_backup:/repository
+            - /mnt/sda1_backup:/repository/sda1
+            - /mnt/sdb1_backup:/repository/sdb1
             # Mount path for browsing mounted snapshots
-            - /tmp:/tmp:shared
+            # - /tmp:/tmp:shared
 
     
 volumes:
