@@ -1,43 +1,29 @@
-version: '3.7'
+version: "3.8"
 services:
-    kopia:
-        image: kopia/kopia:latest
-        hostname: Hostname
-        container_name: Kopia
-        restart: unless-stopped
-        ports:
-            - 51515:51515
-        dns:
-            - 1.1.1.1
-        # Setup the server that provides the web gui
-        command:
-            - server
-            - start
-            - --disable-csrf-token-checks
-            - --insecure
-            - --address=0.0.0.0:51515
-            - --server-username=${USERNAME}
-            - --server-password=${PASSWORD}
-        environment:
-            # Set repository password
-            KOPIA_PASSWORD: ${PASSWORD}
-            USER: ${USERNAME}
-        volumes:
-            # Mount local folders needed by kopia
-            - kopia_config:/app/config
-            - kopia_cache:/app/cache
-            - kopia_logs:/app/logs
-            # Mount local folders to snapshot
-            - /var/lib/docker/volumes:/data:ro
-            # Mount repository location
-            - /mnt/sda1_backup:/repository/sda1
-            - /mnt/sdb1_backup:/repository/sdb1
-            # Mount path for browsing mounted snapshots
-            # - /tmp:/tmp:shared
-
-    
+  backrest:
+    image: garethgeorge/backrest:latest
+    container_name: backrest
+    hostname: backrest
+    volumes:
+      - backrest_data:/data
+      - backrest_config:/config
+      - backrest_cache:/cache
+      - backrest_tmp:/tmp
+      #- ./backrest/rclone:/root/.config/rclone # Mount for rclone config (needed when using rclone remotes)
+      - /var/lib/docker/volumes:/docker_volumes  # Mount local paths to backup
+      - /mnt/backup_sda1:/repos/sda1
+      - /mnt/backup_sdb1:/repos/sdb1
+    environment:
+      - BACKREST_DATA=/data
+      - BACKREST_CONFIG=/config/config.json
+      - XDG_CACHE_HOME=/cache
+      - TMPDIR=/tmp
+      - TZ=Europe/London
+    ports:
+      - "9898:9898"
+    restart: unless-stopped
 volumes:
-    kopia_config:
-    kopia_cache:
-    kopia_logs:
-        
+    backrest_data:
+    backrest_config:
+    backrest_cache:
+    backrest_tmp:
