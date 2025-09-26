@@ -12,8 +12,8 @@ services:
       #- ./backrest/rclone:/root/.config/rclone # Mount for rclone config (needed when using rclone remotes)
       - /var/lib/docker/volumes:/docker_volumes  # Mount local paths to backup
       - /mnt/immich:/mnt/immich
-      - /mnt/backup_sda1:/repos/sda1
-      - /mnt/backup_sdb1:/repos/sdb1
+      - /mnt/backrest_sda1:/mnt/backrest_sda1
+      - /mnt/backrest_sdb1:/mnt/backrest_sdb1
     environment:
       - BACKREST_DATA=/data
       - BACKREST_CONFIG=/config/config.json
