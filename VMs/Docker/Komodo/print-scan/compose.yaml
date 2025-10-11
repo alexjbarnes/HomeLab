@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  cups-sane:
+  print-scan:
     image: ghcr.io/alexjbarnes/homelab/print-scan:latest
     container_name: print-scan
     restart: unless-stopped
