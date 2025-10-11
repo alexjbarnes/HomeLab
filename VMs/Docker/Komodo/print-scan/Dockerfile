@@ -12,6 +12,7 @@ RUN apt-get update && \
     avahi-daemon \
     avahi-utils \
     libnss-mdns \
+    dbus \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -28,9 +29,8 @@ RUN sed -i 's/Listen localhost:631/Port 631/' /etc/cups/cupsd.conf && \
     echo "DefaultShared Yes" >> /etc/cups/cupsd.conf
 
 # Configure Avahi for printer discovery
-RUN sed -i 's/#enable-dbus=yes/enable-dbus=no/' /etc/avahi/avahi-daemon.conf && \
-    sed -i 's/use-ipv6=yes/use-ipv6=no/' /etc/avahi/avahi-daemon.conf && \
-    sed -i 's/#allow-interfaces=/allow-interfaces=eth0/' /etc/avahi/avahi-daemon.conf
+RUN sed -i 's/#enable-dbus=yes/enable-dbus=yes/' /etc/avahi/avahi-daemon.conf && \
+    sed -i 's/use-ipv6=yes/use-ipv6=no/' /etc/avahi/avahi-daemon.conf
 
 # Create CUPS admin user (username: admin, password: admin)
 # Change the password after first login for security!
