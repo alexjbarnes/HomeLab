@@ -12,7 +12,6 @@ services:
       - /dev/bus/usb:/dev/bus/usb
     volumes:
       - ./cups-spool:/var/spool/cups
-      - /var/run/dbus:/var/run/dbus:ro
     environment:
       - TZ=Europe/London
       - CUPS_ADMIN_USER=admin
