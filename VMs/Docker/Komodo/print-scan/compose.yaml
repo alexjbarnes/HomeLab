@@ -1,16 +1,16 @@
-version: '3.8'
-
+## Add your compose file here
 services:
-  cups-sane:
-    image: ghcr.io/alexjbarnes/homelab/print-scan:latest
-    container_name: print-scan
-    restart: unless-stopped
-    privileged: true
-    network_mode: host
-    devices:
-      - /dev/bus/usb:/dev/bus/usb
-    volumes:
-      - ./cups-config:/etc/cups
-      - ./cups-spool:/var/spool/cups
-    environment:
-      - TZ=Europe/London
+  hello_world:
+    image: hello-world
+    # networks:
+    #   - default
+    # ports:
+    #   - 3000:3000
+    # volumes:
+    #   - data:/data
+
+# networks:
+#   default: {}
+
+# volumes:
+#   data:
