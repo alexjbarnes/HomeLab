@@ -15,6 +15,10 @@ RUN sed -i 's/Listen localhost:631/Listen 0.0.0.0:631/' /etc/cups/cupsd.conf && 
     sed -i 's/<Location \/>/<Location \/>\n  Allow all/' /etc/cups/cupsd.conf && \
     sed -i 's/<Location \/admin>/<Location \/admin>\n  Allow all/' /etc/cups/cupsd.conf
 
+# Create CUPS admin user (username: admin, password: admin)
+RUN useradd -r -G lpadmin -M admin && \
+    echo "admin:admin" | chpasswd
+
 EXPOSE 631
 
 CMD ["cupsd", "-f"]
