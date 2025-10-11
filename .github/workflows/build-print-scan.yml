@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'VMs/Docker/Komodo/print-scan/**'
+      - 'VMs/Docker/Komodo/print-scan/Dockerfile'
   workflow_dispatch:
 
 jobs:
