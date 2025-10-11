@@ -9,7 +9,7 @@ RUN apt-get update && \
     printer-driver-gutenprint \
     sane \
     sane-utils \
-    libsane-extras \
+    libsane1 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
