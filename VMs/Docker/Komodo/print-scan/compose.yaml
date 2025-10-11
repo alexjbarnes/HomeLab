@@ -7,9 +7,18 @@ services:
     restart: unless-stopped
     privileged: true
     network_mode: host
+    hostname: cups-server
     devices:
       - /dev/bus/usb:/dev/bus/usb
     volumes:
       - ./cups-spool:/var/spool/cups
+      - /var/run/dbus:/var/run/dbus:ro
     environment:
       - TZ=Europe/London
+      - CUPS_ADMIN_USER=admin
+      - CUPS_ADMIN_PASSWORD=admin
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
