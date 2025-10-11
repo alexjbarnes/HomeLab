@@ -43,8 +43,14 @@ EXPOSE 631/tcp 5353/udp
 # Create startup script to run both services
 RUN echo '#!/bin/sh' > /start.sh && \
     echo 'set -e' >> /start.sh && \
+    echo '# Create D-Bus runtime directories' >> /start.sh && \
+    echo 'mkdir -p /var/run/dbus /run/dbus' >> /start.sh && \
+    echo '# Start D-Bus system daemon' >> /start.sh && \
+    echo 'rm -f /var/run/dbus/pid /run/dbus/pid' >> /start.sh && \
+    echo 'dbus-daemon --system --nofork &' >> /start.sh && \
+    echo 'sleep 2' >> /start.sh && \
     echo '# Start Avahi daemon for network discovery' >> /start.sh && \
-    echo 'avahi-daemon --no-drop-root --no-chroot &' >> /start.sh && \
+    echo 'avahi-daemon -D' >> /start.sh && \
     echo 'sleep 2' >> /start.sh && \
     echo '# Start CUPS in foreground' >> /start.sh && \
     echo 'exec cupsd -f' >> /start.sh && \
