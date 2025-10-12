@@ -33,15 +33,22 @@ RUN sed -i 's/Listen localhost:631/Port 631/' /etc/cups/cupsd.conf && \
 RUN sed -i 's/#enable-dbus=yes/enable-dbus=yes/' /etc/avahi/avahi-daemon.conf && \
     sed -i 's/use-ipv6=yes/use-ipv6=no/' /etc/avahi/avahi-daemon.conf
 
+# Install Canon driver dependencies first
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    libxml2 \
+    libcups2 \
+    libcupsimage2 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copy and install Canon G1020 driver (cnijfilter2 6.10)
 COPY cnijfilter2-6.10-1-deb.tar.gz /tmp/
 RUN cd /tmp && \
     tar -xzf cnijfilter2-6.10-1-deb.tar.gz && \
     cd cnijfilter2-6.10-1-deb/packages && \
-    # Install the driver package
-    dpkg -i cnijfilter2_6.10-1_amd64.deb || true && \
-    # Fix any broken dependencies
-    apt-get install -f -y && \
+    # Install the driver package (dependencies now satisfied)
+    dpkg -i cnijfilter2_6.10-1_amd64.deb && \
     # CRITICAL: Rebuild shared library cache (this is what install.sh does)
     ldconfig && \
     # Create entry list directory that install.sh would create
