@@ -10,7 +10,7 @@ services:
     devices:
       - /dev/bus/usb:/dev/bus/usb
     volumes:
-      - ./cups-config:/etc/cups
+      - print-scan:/etc/cups
       - ./cups-spool:/var/spool/cups
     environment:
       - TZ=Europe/London
@@ -21,3 +21,5 @@ services:
       - NET_RAW
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
+volumes:
+  print-scan:
