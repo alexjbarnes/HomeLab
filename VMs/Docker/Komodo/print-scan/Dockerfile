@@ -42,6 +42,11 @@ RUN cd /tmp && \
     cd /tmp && \
     rm -rf cnijfilter2-6.10-1-deb cnijfilter2-6.10-1-deb.tar.gz
 
+# Copy pre-configured printer settings
+COPY printers.conf /etc/cups/printers.conf
+RUN chown root:lp /etc/cups/printers.conf && \
+    chmod 600 /etc/cups/printers.conf
+
 # Create CUPS admin user (username: admin, password: admin)
 # Change the password after first login for security!
 RUN useradd -r -G lpadmin -M admin && \
