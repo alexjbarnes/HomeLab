@@ -13,6 +13,7 @@ RUN apt-get update && \
     avahi-utils \
     libnss-mdns \
     dbus \
+    libcupsimage2 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -31,6 +32,15 @@ RUN sed -i 's/Listen localhost:631/Port 631/' /etc/cups/cupsd.conf && \
 # Configure Avahi for printer discovery
 RUN sed -i 's/#enable-dbus=yes/enable-dbus=yes/' /etc/avahi/avahi-daemon.conf && \
     sed -i 's/use-ipv6=yes/use-ipv6=no/' /etc/avahi/avahi-daemon.conf
+
+# Copy and install Canon G1020 driver (cnijfilter2 6.10)
+COPY cnijfilter2-6.10-1-deb.tar.gz /tmp/
+RUN cd /tmp && \
+    tar -xzf cnijfilter2-6.10-1-deb.tar.gz && \
+    cd cnijfilter2-6.10-1-deb/packages && \
+    dpkg -i cnijfilter2_6.10-1_amd64.deb || true && \
+    cd /tmp && \
+    rm -rf cnijfilter2-6.10-1-deb cnijfilter2-6.10-1-deb.tar.gz
 
 # Create CUPS admin user (username: admin, password: admin)
 # Change the password after first login for security!
