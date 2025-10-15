@@ -14,6 +14,7 @@ services:
       - /mnt/immich:/mnt/immich
       - /mnt/backrest_sda1:/mnt/backrest_sda1
       - /mnt/backrest_sdb1:/mnt/backrest_sdb1
+      - /mnt/pve_config:/mnt/pve_config
     environment:
       - BACKREST_DATA=/data
       - BACKREST_CONFIG=/config/config.json
