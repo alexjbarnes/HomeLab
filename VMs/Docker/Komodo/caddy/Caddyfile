@@ -53,7 +53,7 @@ jellyfin.local {
 }
 
 mealie.local {
-    reverse_proxy 192.168.0.137:8096
+    reverse_proxy 192.168.0.137:9925
 }
 
 wallabag.local {
