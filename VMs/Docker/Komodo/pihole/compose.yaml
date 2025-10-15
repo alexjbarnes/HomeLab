@@ -10,10 +10,10 @@ services:
     environment:
       TZ: "Europe/London"
       FTLCONF_dns_listeningMode: "all"
-      FTLCONF_misc_etc_dnsmasq_d: "true" # Enable dnsmasq.d directory
+      FTLCONF_misc_etc_dnsmasq_d: "true"
     volumes:
-      - "./etc-pihole:/etc/pihole"
-      - "./etc-dnsmasq.d:/etc/dnsmasq.d"
+      - pihole_config:/etc/pihole
+      - pihole_dnsmasq:/etc/dnsmasq.d
       - type: bind
         source: ./custom.list
         target: /etc/pihole/custom.list
@@ -21,3 +21,7 @@ services:
         source: ./custom-dns.conf
         target: /etc/dnsmasq.d/02-custom-dns.conf
     restart: unless-stopped
+
+volumes:
+  pihole_config:
+  pihole_dnsmasq:
