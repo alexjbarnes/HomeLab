@@ -39,3 +39,27 @@ vikunja.local {
 pihole.local {
     reverse_proxy 192.168.0.137:880
 }
+
+immich.local {
+    reverse_proxy 192.168.0.137:2283
+}
+
+backrest.local {
+    reverse_proxy 192.168.0.137:9898
+}
+
+jellyfin.local {
+    reverse_proxy 192.168.0.137:8096
+}
+
+mealie.local {
+    reverse_proxy 192.168.0.137:8096
+}
+
+wallabag.local {
+    reverse_proxy 192.168.0.137:8880
+}
+
+print.local {
+    reverse_proxy 192.168.0.137:631
+}
