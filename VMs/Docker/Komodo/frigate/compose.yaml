@@ -1,6 +1,8 @@
 services:
   frigate:
     container_name: frigate
+    group_add:
+      - "27" 
     privileged: true # this may not be necessary for all setups
     restart: unless-stopped
     stop_grace_period: 30s # allow enough time to shut down the various services
