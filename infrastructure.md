@@ -3,22 +3,20 @@
 ```mermaid
 graph TB
     subgraph Proxmox["Proxmox Host (192.168.0.93)"]
-        subgraph PBS_LXC["LXC 500: PBS (192.168.0.143)"]
-            PBS_Specs[1 Core, 2GB RAM, 8GB Root]
-            PBS[Proxmox Backup Server<br/>Port 8007]
+        subgraph PBS_LXC["LXC 500: PBS"]
+            PBS[Proxmox Backup Server]
             PBS_Storage1[sda1: 1TB]
             PBS_Storage2[sdb1: 1TB]
             PBS --- PBS_Storage1
             PBS --- PBS_Storage2
         end
         
-        subgraph Docker_VM["VM 200: Docker (192.168.0.137)"]
-            VM200_Specs[4 Cores, 8GB RAM, 100GB Boot<br/>Intel iGPU Passthrough<br/>Storage: 2TB + 4.1TB]
-            Caddy[Caddy Reverse Proxy<br/>Ports 80/443]
+        subgraph Docker_VM["VM 200: Docker"]
+            Caddy[Caddy Reverse Proxy]
             
             subgraph Komodo_Stack["Komodo Stack"]
                 Mongo[(MongoDB)]
-                Komodo_Core[Komodo Core<br/>Port 9120]
+                Komodo_Core[Komodo Core]
                 Komodo_Periphery[Komodo Periphery]
                 Docker_Socket[Docker Socket]
                 Komodo_Core --- Mongo
@@ -26,8 +24,8 @@ graph TB
             end
             
             subgraph Media_Stack["Media Services"]
-                Jellyfin[Jellyfin<br/>Host Network<br/>GPU HW Accel]
-                Debrid[Debrid Downloader<br/>Port 3333]
+                Jellyfin[Jellyfin]
+                Debrid[Debrid Downloader]
                 Immich[Immich Photos]
                 Frigate[Frigate NVR]
                 Media_Storage[Media Storage]
@@ -36,14 +34,14 @@ graph TB
             end
             
             subgraph Apps["Applications"]
-                PiHole[Pi-hole DNS<br/>Ports 53/880]
-                Vikunja[Vikunja Tasks<br/>Port 3456]
-                Mealie[Mealie Recipes<br/>Port 9925]
-                Wallabag[Wallabag<br/>Port 8880]
-                PgAdmin[pgAdmin<br/>Port 8080]
+                PiHole[Pi-hole DNS]
+                Vikunja[Vikunja Tasks]
+                Mealie[Mealie Recipes]
+                Wallabag[Wallabag]
+                PgAdmin[pgAdmin]
                 Backrest[Backrest Backup]
                 Kanbn[Kanbn Board]
-                PrintScan[Print/Scan Server<br/>Canon Driver]
+                PrintScan[Print/Scan Server]
             end
             
             Caddy --> Komodo_Core
@@ -53,13 +51,12 @@ graph TB
             Caddy --> PBS
         end
         
-        subgraph Dev_VM["VM 100: Dev (DHCP)"]
-            Dev_Specs[8 Cores, 16GB RAM, 100GB Disk]
+        subgraph Dev_VM["VM 100: Dev"]
             Dev_Container[Dev Container]
         end
         
         subgraph Template["VM 1000: Alpine Template"]
-            Template_Specs[1 Core, 512MB RAM, 2GB Disk]
+            Template_Node[Alpine Base]
         end
     end
     
@@ -94,35 +91,13 @@ graph TB
 
 This HomeLab runs on Proxmox and consists of:
 
+### Devices
+- [LXC 500: Proxmox Backup Server](LXCs/Proxmox%20Backup%20Server/specs.md) (192.168.0.143)
+- [VM 200: Docker Host](VMs/Docker/specs.md) (192.168.0.137)
+- [VM 100: Dev Environment](VMs/Dev%20VM/specs.md) (DHCP)
+- [VM 1000: Alpine Template](VMs/Alpine%20Template/specs.md)
+
 ### Network Access
-- **Tailscale VPN** - Secure remote access, no exposed ports to internet
+External access is secured via Tailscale VPN on the Proxmox host. No ports exposed to internet.
 
-### LXC 500: Proxmox Backup Server (192.168.0.143)
-- **Resources**: 1 Core | 2GB RAM | 8GB Root filesystem
-- **Storage**: Dual 1TB HDDs (sda1 + sdb1) for backup storage
-- **Services**: PBS Web UI on port 8007
-
-### VM 200: Docker Host (192.168.0.137)
-- **Resources**: 4 Cores | 8GB RAM | 100GB Boot disk
-- **Hardware Passthrough**: Intel iGPU for hardware transcoding
-- **Storage**: 2TB + 4.1TB data disks
-- **USB Passthrough**: Canon printer/scanner hardware
-
-#### Services
-- **Reverse Proxy**: Caddy (ports 80/443) with local TLS
-- **Infrastructure**: Komodo (Core + Periphery + MongoDB)
-- **Media**: Jellyfin (GPU transcoding), Debrid downloader, Immich photos, Frigate NVR
-- **Network**: Pi-hole DNS/ad-blocking (ports 53/880)
-- **Productivity**: Vikunja tasks, Mealie recipes, Wallabag, Kanbn board
-- **Admin**: pgAdmin, Backrest backups, Print/Scan server
-
-### VM 100: Dev Environment
-- **Resources**: 8 Cores | 16GB RAM | 100GB Disk
-- **IP**: DHCP assigned
-- **Purpose**: Development container host
-
-### VM 1000: Alpine Template
-- **Resources**: 1 Core | 512MB RAM | 2GB Disk
-- **Purpose**: Base template for cloning new VMs
-
-All services route through Caddy with local DNS entries configured in Pi-hole for convenient .local domain access. External access is secured via Tailscale VPN on the Proxmox host.
+All services route through Caddy reverse proxy with local DNS entries configured in Pi-hole for convenient .local domain access.
