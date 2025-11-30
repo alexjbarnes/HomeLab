@@ -4,7 +4,8 @@
 graph TB
     subgraph Proxmox["Proxmox Host (192.168.0.93)"]
         subgraph PBS_LXC["LXC 500: PBS (192.168.0.143)"]
-            PBS[Proxmox Backup Server<br/>Port 8007<br/>1 Core, 2GB RAM, 8GB Root]
+            PBS_Specs[1 Core, 2GB RAM, 8GB Root]
+            PBS[Proxmox Backup Server<br/>Port 8007]
             PBS_Storage1[sda1: 1TB]
             PBS_Storage2[sdb1: 1TB]
             PBS --- PBS_Storage1
@@ -13,7 +14,6 @@ graph TB
         
         subgraph Docker_VM["VM 200: Docker (192.168.0.137)"]
             VM200_Specs[4 Cores, 8GB RAM, 100GB Boot<br/>Intel iGPU Passthrough<br/>Storage: 2TB + 4.1TB]
-            
             Caddy[Caddy Reverse Proxy<br/>Ports 80/443]
             
             subgraph Komodo_Stack["Komodo Stack"]
