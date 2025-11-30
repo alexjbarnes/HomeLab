@@ -18,14 +18,15 @@ graph TB
                 Mongo[(MongoDB)]
                 Komodo_Core[Komodo Core<br/>Port 9120]
                 Komodo_Periphery[Komodo Periphery]
+                Docker_Socket[Docker Socket]
                 Komodo_Core --- Mongo
-                Komodo_Periphery -.Docker Socket.-> Docker_Socket[/var/run/docker.sock]
+                Komodo_Periphery -.Mounts.-> Docker_Socket
             end
             
             subgraph Media_Stack["Media Services"]
                 Jellyfin[Jellyfin<br/>Host Network<br/>GPU Passthrough]
                 Debrid[Debrid Downloader<br/>Port 3333]
-                Media_Storage[/mnt/media]
+                Media_Storage[Media Storage]
                 Jellyfin --- Media_Storage
                 Debrid --- Media_Storage
             end
