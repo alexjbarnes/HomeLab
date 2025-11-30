@@ -1,5 +1,84 @@
 # VM 200: Docker Host
 
+```mermaid
+graph TB
+    Network[Network<br/>192.168.0.137<br/>vmbr0]
+    Internet[Internet] -.Tailscale VPN.-> Network
+    
+    subgraph VM200["VM 200: Docker Host"]
+        subgraph Hardware["Hardware"]
+            CPU[4 Cores<br/>Host CPU]
+            RAM[8GB RAM]
+            GPU[Intel iGPU<br/>HW Transcode]
+            USB1[USB: Canon Printer]
+            USB2[USB: 8087:0033]
+        end
+        
+        subgraph Storage["Storage"]
+            Boot[Boot: 100GB<br/>local-lvm]
+            Data1[Data: 2TB<br/>scsi1]
+            Data2[Data: 4.1TB<br/>scsi2]
+        end
+        
+        Caddy[Caddy<br/>80/443]
+        
+        subgraph Infrastructure["Infrastructure"]
+            Komodo[Komodo Core<br/>:9120]
+            Periphery[Komodo Periphery]
+            Mongo[(MongoDB)]
+            Komodo --- Mongo
+        end
+        
+        subgraph Media["Media Services"]
+            Jellyfin[Jellyfin<br/>GPU Transcode]
+            Debrid[Debrid DL<br/>:3333]
+            Immich[Immich Photos]
+            Frigate[Frigate NVR]
+        end
+        
+        subgraph Network_Services["Network"]
+            PiHole[Pi-hole<br/>:53, :880]
+        end
+        
+        subgraph Productivity["Productivity"]
+            Vikunja[Vikunja<br/>:3456]
+            Mealie[Mealie<br/>:9925]
+            Wallabag[Wallabag<br/>:8880]
+            Kanbn[Kanbn]
+        end
+        
+        subgraph Admin["Admin"]
+            PgAdmin[pgAdmin<br/>:8080]
+            Backrest[Backrest]
+            PrintScan[Print/Scan]
+        end
+        
+        Caddy --> Komodo
+        Caddy --> Debrid
+        Caddy --> Vikunja
+        Caddy --> PiHole
+        Caddy --> Mealie
+        Caddy --> Wallabag
+        
+        GPU -.-> Jellyfin
+        USB1 -.-> PrintScan
+        Data1 -.Media Storage.-> Jellyfin
+        Data1 -.Media Storage.-> Debrid
+    end
+    
+    Network --> Caddy
+    PiHole -.DNS.-> Network
+    
+    style VM200 fill:#0f3460,stroke:#16213e,stroke-width:2px,color:#eee
+    style Hardware fill:#1a1a2e,stroke:#e94560,stroke-width:2px,color:#eee
+    style Storage fill:#1a1a2e,stroke:#e94560,stroke-width:2px,color:#eee
+    style Infrastructure fill:#16213e,stroke:#e94560,stroke-width:2px,color:#eee
+    style Media fill:#16213e,stroke:#e94560,stroke-width:2px,color:#eee
+    style Network_Services fill:#16213e,stroke:#e94560,stroke-width:2px,color:#eee
+    style Productivity fill:#16213e,stroke:#e94560,stroke-width:2px,color:#eee
+    style Admin fill:#16213e,stroke:#e94560,stroke-width:2px,color:#eee
+```
+
 ## Network
 - **IP Address**: 192.168.0.137
 - **Gateway**: 192.168.0.1 (via vmbr0)
