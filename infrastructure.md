@@ -54,7 +54,7 @@ graph TB
     PBS -.Backups.-> Docker_VM
     PBS -.Backups.-> Dev_VM
     
-    Internet((Internet)) --> Caddy
+    Tailscale[Tailscale VPN] --> Proxmox
     
     subgraph DNS_Routes["DNS Routes (Custom)"]
         DNS1[pve.local → 192.168.0.93:8006]
@@ -81,11 +81,14 @@ graph TB
 
 This HomeLab runs on Proxmox and consists of:
 
+### Network Access
+- **Tailscale VPN** - Secure remote access, no exposed ports to internet
+
 ### LXC Container
 - **Proxmox Backup Server (192.168.0.143)** - Dual 200GB storage (local + NFS)
 
 ### Docker VM (192.168.0.137)
-- **Caddy** - Reverse proxy handling TLS termination
+- **Caddy** - Reverse proxy handling TLS termination for internal services
 - **Komodo Stack** - Infrastructure management (Core + Periphery + MongoDB)
 - **Media Services** - Jellyfin with GPU passthrough, Debrid downloader
 - **Pi-hole** - DNS/ad-blocking
@@ -94,4 +97,4 @@ This HomeLab runs on Proxmox and consists of:
 ### Dev VM
 - Development container environment
 
-All services route through Caddy with local DNS entries configured in Pi-hole for convenient .local domain access.
+All services route through Caddy with local DNS entries configured in Pi-hole for convenient .local domain access. External access is secured via Tailscale VPN on the Proxmox host.
