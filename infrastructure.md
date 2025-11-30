@@ -67,13 +67,14 @@ graph TB
     
     PiHole -.DNS Resolution.-> DNS_Routes
     
-    style Proxmox fill:#e1f5ff
-    style Docker_VM fill:#fff4e1
-    style PBS_LXC fill:#ffe1f5
-    style Dev_VM fill:#e1ffe1
-    style Komodo_Stack fill:#f0f0f0
-    style Media_Stack fill:#f0f0f0
-    style Apps fill:#f0f0f0
+    style Proxmox fill:#1a1a2e,stroke:#16213e,stroke-width:2px,color:#eee
+    style Docker_VM fill:#0f3460,stroke:#16213e,stroke-width:2px,color:#eee
+    style PBS_LXC fill:#16213e,stroke:#533483,stroke-width:2px,color:#eee
+    style Dev_VM fill:#1a1a2e,stroke:#16213e,stroke-width:2px,color:#eee
+    style Komodo_Stack fill:#16213e,stroke:#e94560,stroke-width:2px,color:#eee
+    style Media_Stack fill:#16213e,stroke:#e94560,stroke-width:2px,color:#eee
+    style Apps fill:#16213e,stroke:#e94560,stroke-width:2px,color:#eee
+    style DNS_Routes fill:#1a1a2e,stroke:#16213e,stroke-width:2px,color:#eee
 ```
 
 ## Overview
