@@ -20,6 +20,6 @@ services:
       resources:
         limits:
           memory: 1g
-  volumes:
-    jellyfin_config:
-    jellyfin_cache:
+volumes:
+  jellyfin_config:
+  jellyfin_cache:
