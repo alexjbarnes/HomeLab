@@ -8,8 +8,8 @@ services:
     container_name: jellyfin
     network_mode: 'host'
     volumes:
-      - /jellyfin/config:/config
-      - /jellyfin/cache:/cache
+      - jellyfin_config:/config
+      - jellyfin_cache:/cache
       - type: bind
         source: /mnt/media
         target: /media
@@ -20,3 +20,6 @@ services:
       resources:
         limits:
           memory: 1g
+  volumes:
+    jellyfin_config:
+    jellyfin_cache:
