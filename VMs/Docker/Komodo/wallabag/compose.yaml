@@ -19,6 +19,10 @@ services:
       - PGID=1000
       - TZ=Europe/London
       - PUID=1000
+    deploy:
+      resources:
+        limits:
+          memory: 512M
     restart: unless-stopped
 
 volumes:

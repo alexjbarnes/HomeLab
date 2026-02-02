@@ -4,6 +4,10 @@ services:
   caddy:
     image: caddy:latest
     container_name: caddy
+    deploy:
+      resources:
+        limits:
+          memory: 256M
     restart: unless-stopped
     ports:
       - "80:80"

@@ -23,6 +23,10 @@ services:
       - TZ=Europe/London
     ports:
       - "9898:9898"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
     restart: unless-stopped
 volumes:
     backrest_data:

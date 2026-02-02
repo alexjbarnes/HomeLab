@@ -20,6 +20,10 @@ services:
       - type: bind
         source: ./custom-dns.conf
         target: /etc/dnsmasq.d/02-custom-dns.conf
+    deploy:
+      resources:
+        limits:
+          memory: 256M
     restart: unless-stopped
 
 volumes:
