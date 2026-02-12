@@ -1,0 +1,11 @@
+services:
+  vault-sync:
+    image: ghcr.io/alexjbarnes/vault-sync:latest
+    env-file:
+      - .env
+    volumes:
+      - vault-sync:/home/nonroot/.vault-sync
+    restart: unless-stopped
+
+volumes:
+  vault-sync:
