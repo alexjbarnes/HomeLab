@@ -4,7 +4,7 @@ services:
     env_file:
       - .env
     volumes:
-      - vault-sync:/home/nonroot/.vault-sync
+      - vault-sync:/root/.vault-sync
     restart: unless-stopped
 
 volumes:
