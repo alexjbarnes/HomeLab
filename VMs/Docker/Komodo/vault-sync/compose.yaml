@@ -1,7 +1,7 @@
 services:
   vault-sync:
     image: ghcr.io/alexjbarnes/vault-sync:latest
-    env-file:
+    env_file:
       - .env
     volumes:
       - vault-sync:/home/nonroot/.vault-sync
