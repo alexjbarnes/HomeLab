@@ -3,6 +3,8 @@ services:
     image: ghcr.io/alexjbarnes/vault-sync:latest
     env_file:
       - .env
+    ports:
+      - "8090:8090"
     volumes:
       - vault-sync:/root/.vault-sync
     restart: unless-stopped
