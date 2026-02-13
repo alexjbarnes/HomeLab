@@ -63,3 +63,13 @@ wallabag.local {
 print.local {
     reverse_proxy 192.168.0.137:631
 }
+
+roasta.local {
+    handle /images/* {
+        uri strip_prefix /images
+        reverse_proxy 192.168.0.137:9000
+    }
+    handle {
+        reverse_proxy 192.168.0.137:3002
+    }
+}
