@@ -1,0 +1,19 @@
+services:
+  conduit:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8080:8080"  # MCP server
+      - "8081:8081"  # Admin UI
+    environment:
+      - CONDUIT_MASTER_KEY=${CONDUIT_MASTER_KEY}
+      - CONDUIT_DB_PATH=/data/conduit.db
+      - CONDUIT_MCP_PORT=8080
+      - CONDUIT_ADMIN_PORT=8081
+    volumes:
+      - conduit-data:/data
+    restart: unless-stopped
+
+volumes:
+  conduit-data:
