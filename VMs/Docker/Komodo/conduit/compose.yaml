@@ -1,8 +1,6 @@
 services:
   conduit:
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
+    image: ghcr.io/alexjbarnes/conduit:latest
     ports:
       - "8080:8080"  # MCP server
       - "8081:8081"  # Admin UI
