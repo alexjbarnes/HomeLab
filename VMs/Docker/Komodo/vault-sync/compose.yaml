@@ -1,6 +1,6 @@
 services:
   vault-sync:
-    image: ghcr.io/alexjbarnes/vault-sync:dev
+    image: ghcr.io/alexjbarnes/vault-sync:latest
     env_file:
       - .env
     ports:
