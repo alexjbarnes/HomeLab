@@ -1,6 +1,6 @@
 services:
   conduit:
-    image: ghcr.io/alexjbarnes/conduit:latest
+    image: ghcr.io/alexjbarnes/conduit:dev
     ports:
       - "8080:8080"  # MCP server
       - "8081:8081"  # Admin UI
