@@ -10,6 +10,7 @@ services:
       - CONDUIT_ADMIN_BIND_ADDR=${CONDUIT_ADMIN_BIND_ADDR}
       - CONDUIT_MCP_PORT=${CONDUIT_MCP_PORT}
       - CONDUIT_ADMIN_PORT=${CONDUIT_ADMIN_PORT}
+      - CONDUIT_MCP_URL=${CONDUIT_MCP_URL}
     volumes:
       - conduit-data:/data
     restart: unless-stopped
