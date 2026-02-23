@@ -7,8 +7,9 @@ services:
     environment:
       - CONDUIT_MASTER_KEY=${CONDUIT_MASTER_KEY}
       - CONDUIT_DB_PATH=/data/conduit.db
-      - CONDUIT_MCP_PORT=8080
-      - CONDUIT_ADMIN_PORT=8081
+      - CONDUIT_ADMIN_BIND_ADDR=${CONDUIT_ADMIN_BIND_ADDR}
+      - CONDUIT_MCP_PORT=${CONDUIT_MCP_PORT}
+      - CONDUIT_ADMIN_PORT=${CONDUIT_ADMIN_PORT}
     volumes:
       - conduit-data:/data
     restart: unless-stopped
