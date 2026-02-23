@@ -10,8 +10,9 @@ services:
           memory: 256M
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
+        - "192.168.0.137:80:80"
+        - "192.168.0.137:443:443"
+        - "192.168.0.137:443:443/udp"
     volumes:
       - type: bind
         source: ./Caddyfile
