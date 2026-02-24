@@ -68,6 +68,10 @@ conduit.local {
     reverse_proxy 192.168.0.137:8081
 }
 
+vault-sync.local {
+    reverse_proxy 192.168.0.137:8081
+}
+
 roasta.local {
     handle /images/* {
         uri strip_prefix /images
