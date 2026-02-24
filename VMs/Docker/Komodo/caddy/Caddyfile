@@ -69,7 +69,7 @@ conduit.local {
 }
 
 vault-sync.local {
-    reverse_proxy 192.168.0.137:8081
+    reverse_proxy 192.168.0.137:8090
 }
 
 roasta.local {
