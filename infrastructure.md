@@ -34,4 +34,4 @@ This HomeLab runs on Proxmox and consists of:
 ### Network Access
 External access is secured via Tailscale VPN on the Proxmox host. No ports exposed to internet.
 
-All services route through Caddy reverse proxy with local DNS entries configured in Pi-hole for convenient .local domain access.
+All services route through Caddy reverse proxy with local DNS entries configured in Pi-hole for convenient .lan domain access.

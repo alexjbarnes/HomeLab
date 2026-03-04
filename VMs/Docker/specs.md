@@ -145,7 +145,7 @@ graph TB
 - **Print/Scan Server**: Canon printer driver support
 
 ## DNS Routes
-- **komodo.local** → 192.168.0.137:9120
-- **debrid.local** → 192.168.0.137:3333
-- **vikunja.local** → 192.168.0.137:3456
-- **pihole.local** → 192.168.0.137:880
+- **komodo.lan** → 192.168.0.137:9120
+- **debrid.lan** → 192.168.0.137:3333
+- **vikunja.lan** → 192.168.0.137:3456
+- **pihole.lan** → 192.168.0.137:880

@@ -20,7 +20,7 @@ graph TB
     
     Network --> PBS
     
-    Caddy[Caddy Reverse Proxy<br/>pbs.local] -.HTTPS.-> PBS
+    Caddy[Caddy Reverse Proxy<br/>pbs.lan] -.HTTPS.-> PBS
     Proxmox[Proxmox Host] -.Backup Jobs.-> PBS
     
     style LXC500 fill:#16213e,stroke:#533483,stroke-width:2px,color:#eee
@@ -56,4 +56,4 @@ graph TB
 - **Purpose**: Backup storage for VMs and LXCs
 
 ## DNS Routes
-- **pbs.local** → 192.168.0.143:8007
+- **pbs.lan** → 192.168.0.143:8007

@@ -3,19 +3,19 @@
     local_certs
 }
 
-pve.local {
+pve.lan {
     reverse_proxy https://192.168.0.93:8006 {
         transport http {
             tls_insecure_skip_verify
         }
-        header_up X-Forwarded-Host pve.local
+        header_up X-Forwarded-Host pve.lan
         header_up X-Forwarded-Proto https
         header_up X-Forwarded-For {remote_host}
         header_up X-Real-IP {remote_host}
     }
 }
 
-pbs.local {
+pbs.lan {
     reverse_proxy {
         to https://192.168.0.143:8007
         transport http {
@@ -24,55 +24,55 @@ pbs.local {
     }
 }
 
-komodo.local {
+komodo.lan {
     reverse_proxy 192.168.0.137:9120
 }
 
-debrid.local {
+debrid.lan {
     reverse_proxy 192.168.0.137:3333
 }
 
-vikunja.local {
+vikunja.lan {
     reverse_proxy 192.168.0.137:3456
 }
 
-pihole.local {
+pihole.lan {
     reverse_proxy 192.168.0.137:880
 }
 
-immich.local {
+immich.lan {
     reverse_proxy 192.168.0.137:2283
 }
 
-backrest.local {
+backrest.lan {
     reverse_proxy 192.168.0.137:9898
 }
 
-jellyfin.local {
+jellyfin.lan {
     reverse_proxy 192.168.0.137:8096
 }
 
-mealie.local {
+mealie.lan {
     reverse_proxy 192.168.0.137:9925
 }
 
-wallabag.local {
+wallabag.lan {
     reverse_proxy 192.168.0.137:8880
 }
 
-print.local {
+print.lan {
     reverse_proxy 192.168.0.137:631
 }
 
-conduit.local {
+conduit.lan {
     reverse_proxy 192.168.0.137:8081
 }
 
-vault-sync.local {
+vault-sync.lan {
     reverse_proxy 192.168.0.137:8090
 }
 
-roasta.local {
+roasta.lan {
     handle /images/* {
         uri strip_prefix /images
         reverse_proxy 192.168.0.137:9000
