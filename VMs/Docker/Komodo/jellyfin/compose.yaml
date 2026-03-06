@@ -7,6 +7,9 @@ services:
       - "27" 
     container_name: jellyfin
     network_mode: 'host'
+    environment:
+      - JELLYFIN_FFmpeg__probesize=1G
+      - JELLYFIN_FFmpeg__analyzeduration
     volumes:
       - jellyfin_config:/config
       - jellyfin_cache:/cache
