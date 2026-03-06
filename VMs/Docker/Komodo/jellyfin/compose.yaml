@@ -9,7 +9,7 @@ services:
     network_mode: 'host'
     environment:
       - JELLYFIN_FFmpeg__probesize=1G
-      - JELLYFIN_FFmpeg__analyzeduration
+      - JELLYFIN_FFmpeg__analyzeduration=200M
     volumes:
       - jellyfin_config:/config
       - jellyfin_cache:/cache
