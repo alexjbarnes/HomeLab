@@ -80,22 +80,15 @@ RUN useradd -r -G lpadmin -M admin && \
 # Expose CUPS port and mDNS port for discovery
 EXPOSE 631/tcp 5353/udp
 
-# Create startup script to run both services
-RUN echo '#!/bin/sh' > /start.sh && \
-    echo 'set -e' >> /start.sh && \
-    echo '# Set up library path for Canon drivers' >> /start.sh && \
-    echo 'export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH' >> /start.sh && \
-    echo '# Create D-Bus runtime directories' >> /start.sh && \
-    echo 'mkdir -p /var/run/dbus /run/dbus' >> /start.sh && \
-    echo '# Start D-Bus system daemon' >> /start.sh && \
-    echo 'rm -f /var/run/dbus/pid /run/dbus/pid' >> /start.sh && \
-    echo 'dbus-daemon --system --nofork &' >> /start.sh && \
-    echo 'sleep 2' >> /start.sh && \
-    echo '# Start Avahi daemon for network discovery' >> /start.sh && \
-    echo 'avahi-daemon -D' >> /start.sh && \
-    echo 'sleep 2' >> /start.sh && \
-    echo '# Start CUPS in foreground' >> /start.sh && \
-    echo 'exec cupsd -f' >> /start.sh && \
-    chmod +x /start.sh
+# Install usbutils for lsusb
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends usbutils && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy startup and monitor scripts
+COPY start.sh /start.sh
+COPY monitor.sh /monitor.sh
+RUN chmod +x /start.sh /monitor.sh
 
 CMD ["/start.sh"]
