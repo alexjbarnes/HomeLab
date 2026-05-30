@@ -84,3 +84,4 @@ Google's official Gmail MCP API requires Google Workspace Developer Preview Prog
 ## Setup Guides
 - [Conduit installation and OAuth setup](conduit.md)
 - [Gmail MCP setup](gmail.md)
+- [Claude CLI config recovery](claude-mcp-config.md) — restore the `mcpServers` block after an update wipes it
