@@ -60,6 +60,22 @@ These appear under "Your restricted scopes" → "Gmail scopes". Restricted scope
 
 User cap is 100 by default — plenty.
 
+### Publish to Production (do this — avoids weekly re-auth)
+> **The single most important gotcha.** While the app is in **Testing**, Google expires the OAuth **refresh token after 7 days**. The MCP server then fails every tool call with `invalid_grant` / "Gmail authentication expired" and you have to re-run the whole auth flow. It will keep happening every week.
+
+Fix: move the app to Production.
+
+1. Google Auth Platform → Audience → **Publish app**
+2. Confirm Testing → In production
+3. When it warns that restricted scopes require verification, **publish anyway** — you do NOT need verification for personal use
+
+Production + unverified is the correct end state for a single-user personal app:
+- Refresh tokens no longer expire on the 7-day rule
+- You're still unverified, so at consent time you click through the "Google hasn't verified this app" warning (Advanced → Go to `<app name>`)
+- **Ignore the Verification Centre entirely** — that's Google's multi-week CASA security review, only needed to drop the warning for the general public. Publishing status (Testing/Production) and verification are independent.
+
+Publishing does NOT expose your mailbox. OAuth data access always requires a user to log into a Google account and consent; tokens only ever reach the mailbox of whoever authenticated. A stranger running your app's flow would authorise their own account, never yours. What protects your email is your Google login and the `~/.gmail-mcp/credentials.json` file on the VM — keep that file private.
+
 ### Create OAuth client
 1. APIs & Services → Credentials → Create Credentials → OAuth client ID
 2. Application type: **Desktop app**
@@ -224,6 +240,7 @@ After setup the `gmail` MCP server exposes:
 |-------|--------------|-----|
 | `EADDRINUSE: address already in use :::3000` | Another process bound port 3000 | Find and stop it: `ss -tlnp \| grep 3000` |
 | `Error: invalid_grant` during auth | Stale or already-used auth code | Re-run the auth command |
+| `invalid_grant` / "Gmail authentication expired" on tool calls (worked before, dies after ~7 days) | App still in **Testing** mode — Google expires refresh tokens after 7 days | Publish app to Production (see "Publish to Production" above), then re-auth once. Restart Claude so the MCP subprocess reloads `credentials.json` |
 | `Error 400: redirect_uri_mismatch` | Google client config doesn't list the callback URL | Add `http://localhost:3000/oauth2callback` (Desktop type) or your custom URL (Web type) |
 | `Access blocked: Authorization Error - Some requested scopes were invalid` | Scope spelled wrong or not added in Data Access | Verify both scopes are listed in Data Access |
 | Tool returns "No access, refresh token..." | `credentials.json` missing or corrupt | Re-run auth flow |
