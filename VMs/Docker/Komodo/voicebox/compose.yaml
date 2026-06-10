@@ -1,0 +1,29 @@
+services:
+  voicebox:
+    image: ghcr.io/jamiepine/voicebox:latest
+    container_name: voicebox
+    restart: unless-stopped
+
+    ports:
+      - "17493:17493"
+
+    volumes:
+      - type: bind
+        source: ./output
+        target: /app/data/generations
+      - voicebox-data:/app/data
+      - huggingface-cache:/home/voicebox/.cache/huggingface
+
+    environment:
+      - LOG_LEVEL=info
+      - NUMBA_CACHE_DIR=/tmp/numba_cache
+
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8G
+
+volumes:
+  voicebox-data:
+  huggingface-cache:
