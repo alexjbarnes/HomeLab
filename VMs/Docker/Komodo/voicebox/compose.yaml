@@ -13,11 +13,11 @@ services:
         source: ./output
         target: /app/data/generations
       - voicebox-data:/app/data
-      - huggingface-cache:/home/voicebox/.cache/huggingface
 
     environment:
       - LOG_LEVEL=info
       - NUMBA_CACHE_DIR=/tmp/numba_cache
+      - HF_HOME=/app/data/huggingface
 
     deploy:
       resources:
@@ -27,4 +27,3 @@ services:
 
 volumes:
   voicebox-data:
-  huggingface-cache:
