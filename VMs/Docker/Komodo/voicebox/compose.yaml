@@ -12,7 +12,7 @@ services:
         source: ./output
         target: /app/data/generations
       - voicebox-data:/app/data
-      - huggingface-cache:/home/voicebox/.cache/huggingface
+      - huggingface-cache:/root/.cache/huggingface
 
     environment:
       - LOG_LEVEL=info
