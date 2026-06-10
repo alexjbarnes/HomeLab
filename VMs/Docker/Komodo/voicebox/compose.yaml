@@ -1,18 +1,19 @@
 services:
   voicebox:
-    image: ghcr.io/jamiepine/voicebox:latest
+    build:
+      context: https://github.com/jamiepine/voicebox.git
     container_name: voicebox
     restart: unless-stopped
 
     ports:
-      - "17493:8000"
+      - "17493:17493"
 
     volumes:
       - type: bind
         source: ./output
         target: /app/data/generations
       - voicebox-data:/app/data
-      - huggingface-cache:/root/.cache/huggingface
+      - huggingface-cache:/home/voicebox/.cache/huggingface
 
     environment:
       - LOG_LEVEL=info
