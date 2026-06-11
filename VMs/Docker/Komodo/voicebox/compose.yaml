@@ -9,9 +9,6 @@ services:
       - "17493:17493"
 
     volumes:
-      - type: bind
-        source: ./output
-        target: /app/data/generations
       - voicebox-data:/app/data
 
     environment:
