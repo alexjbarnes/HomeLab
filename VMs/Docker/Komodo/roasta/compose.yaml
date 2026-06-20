@@ -1,6 +1,6 @@
 services:
   roasta:
-    image: ghcr.io/alexjbarnes/roasta:latest
+    image: ghcr.io/alexjbarnes/roasta:dev
     ports:
       - "3002:3002"
     environment:
@@ -38,6 +38,9 @@ services:
       - RUSTFS_CONSOLE_ADDRESS=0.0.0.0:9001
       - RUSTFS_ACCESS_KEY=${S3_ACCESS_KEY:-roasta-dev}
       - RUSTFS_SECRET_KEY=${S3_SECRET_KEY:-roasta-dev-secret}
+      # Single-host: all four volumes live on one disk. Erasure gives no real
+      # redundancy here, so bypass the distinct-disk safety check (dev only).
+      - RUSTFS_UNSAFE_BYPASS_DISK_CHECK=true
     volumes:
       - rustfs-data-0:/data/rustfs0
       - rustfs-data-1:/data/rustfs1
