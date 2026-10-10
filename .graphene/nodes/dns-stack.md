@@ -1,0 +1,24 @@
+---
+type: subsystem
+summary: Home DNS path: Tailscale MagicDNS on each device forwarding to Pi-hole (Docker on docker-vm), with Caddy serving *.lan via local certs
+entry_points:
+  - docs/dns-debug.md
+  - VMs/Docker/Komodo/pihole/compose.yaml
+  - VMs/Docker/Komodo/pihole/custom.list
+  - VMs/Docker/Komodo/caddy/Caddyfile
+covers:
+  - VMs/Docker/Komodo/pihole/**
+  - VMs/Docker/Komodo/caddy/**
+  - docs/dns-debug.md
+last_commit: 7e282125c419355d91f60cb28d15eb939558d322
+---
+
+- Pi-hole FTL v6.7.1 runs in Docker on docker-vm, answering UDP+TCP 53 on Tailscale IP 100.77.12.68 (docker-vm.tailc5f98.ts.net) and LAN 192.168.0.137. Its real upstreams are 8.8.8.8/8.8.4.4 (CHAOS TXT servers.bind, 2026-09-27), not Cloudflare as docs/dns-debug.md says. <!-- id:dd74 -->
+- Android 'all DNS fails, tunnel up' diagnostic (2026-09-27): in a network tools app on the phone, query google.com at 100.100.100.100 (Tailscale's local resolver) and at 100.77.12.68 (Pi-hole). Pi-hole answered, quad-100 errored, so the Tailscale app's DNS proxy was wedged. Force-stopping the Tailscale app fixed it. Toggling the VPN in-app and rebooting the phone did not. <!-- id:0c9e -->
+- Tailscale's forwarder (net/dns/resolver/forwarder.go) races all configured nameservers and returns the first valid answer. SERVFAIL and REFUSED count as soft errors, so a device only sees a failure when every nameserver fails or quad-100 itself is stuck. Known resolvers such as 1.1.1.1 are upgraded to DoH. <!-- id:085c -->
+- The Pi-hole v6 API needs a password and the dev container has no credentials, so the query log and diagnosis page have to be checked by the user in the web UI. <!-- id:5764 -->
+- docs/dns-debug.md updated 2026-09-27 (not committed yet). It now has a device triage table (admin page by IP, then Pi-hole direct, then 100.100.100.100), Pi-hole checks (servers.bind, rate-limit warnings), the stuck Tailscale resolver fix, and a section on Cloudflare nameservers racing Pi-hole (ad leaks, intermittent .lan NXDOMAIN, fixed with a split DNS route for 'lan'). Pi-hole's upstream is now correctly listed as Google. <!-- id:4ef8 -->
+- 2026-09-29: the phone got NXDOMAIN for debrid.lan even after a force-stop. From the dev VM, Pi-hole answered debrid.lan correctly, but 100.100.100.100 returned NXDOMAIN. whoami.akamai.net through 100.100.100.100 returned the same resolver IP as querying the router 192.168.0.1 directly, which means the tailnet DNS was going to the router's DNS and not Pi-hole. This is a tailnet-wide config problem, not the phone. Useful check from any Linux node: compare whoami.akamai.net answers via 100.100.100.100, 100.77.12.68 and 192.168.0.1. <!-- id:0a42 -->
+- Confirmed cause on 2026-09-29: "Override DNS servers" (Override local DNS) had been switched off in the Tailscale admin console. With it off, 100.100.100.100 sent everything to the local network DNS, so .lan names came back NXDOMAIN on every node, not just the phone. The toggle has been found off before (see docs/dns-debug.md). A split DNS route for lan to 100.77.12.68 keeps .lan working even when the toggle is off. <!-- id:4243 -->
+- docs/dns-debug.md committed as 7d21216 (2026-10-01). Before committing, the "Override local DNS" section was broadened from an Android-ads issue to a tailnet-wide one: symptom is now NXDOMAIN for .lan on every device while external names resolve, the cause explains that 100.100.100.100 falls back to the router's DNS, and the fix adds a step to check the admin console Logs page for what changed the setting. Triage table now says to retest check 3 from a second device to tell a stuck phone app from a tailnet settings problem, and documents the whoami.akamai.net comparison to see which resolver actually answered. <!-- id:3777 -->
+- 2026-10-10: added cockpit-dev.lan. Caddyfile site block reverse_proxy 192.168.0.39:3001 (the upstream is off-host, unlike the other docker-vm services); pihole custom.list entry points at 192.168.0.137 like every other name. Caddy v2 proxies WebSocket upgrades with no extra config, so no special handling for the Cockpit UI. <!-- id:02a6 src:user request to expose cockpit-dev -->
