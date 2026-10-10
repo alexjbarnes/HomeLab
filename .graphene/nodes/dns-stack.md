@@ -10,7 +10,7 @@ covers:
   - VMs/Docker/Komodo/pihole/**
   - VMs/Docker/Komodo/caddy/**
   - docs/dns-debug.md
-last_commit: 7e282125c419355d91f60cb28d15eb939558d322
+last_commit: 567ec22e736b75bf2026dede63369c23e1354706
 ---
 
 - Pi-hole FTL v6.7.1 runs in Docker on docker-vm, answering UDP+TCP 53 on Tailscale IP 100.77.12.68 (docker-vm.tailc5f98.ts.net) and LAN 192.168.0.137. Its real upstreams are 8.8.8.8/8.8.4.4 (CHAOS TXT servers.bind, 2026-09-27), not Cloudflare as docs/dns-debug.md says. <!-- id:dd74 -->

@@ -12,7 +12,7 @@ covers:
   - LXCs/**
   - infrastructure.md
   - VMs/Observability/**
-last_commit: 7e282125c419355d91f60cb28d15eb939558d322
+last_commit: 567ec22e736b75bf2026dede63369c23e1354706
 ---
 
 - Observability VM on the pve host is only partially in the repo (as of 935a0ec). Only VMs/Observability/Komodo/InfluxDB/compose.yaml exists (influxdb:2 on 8086, added 817ab70 on 2025-12-31). There is no qemu-server/<vmid>.conf for it, no VMs/Observability/specs.md, and it is absent from infrastructure.md. qemu-server/ holds only 100 Dev-VM, 200 Docker, 1000 AlpineVmTemplate; lxc/ holds only 500 PBS. Its VMID and IP are not recorded anywhere in the repo. <!-- id:65c6 -->
