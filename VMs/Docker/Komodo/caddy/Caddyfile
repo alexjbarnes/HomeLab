@@ -85,3 +85,7 @@ roasta.lan {
 cockpit-dev.lan {
     reverse_proxy 192.168.0.39:3001
 }
+
+cockpit-mac.lan {
+    reverse_proxy 192.168.0.3:3001
+}
