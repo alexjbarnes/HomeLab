@@ -7,7 +7,7 @@ entry_points:
 covers:
   - VMs/Docker/Komodo/**
   - VMs/Observability/Komodo/komodo/**
-last_commit: 567ec22e736b75bf2026dede63369c23e1354706
+last_commit: 1f66b7c9d67de54904bc6dc1c216da9a891c7bf5
 metadata: {"image":"ghcr.io/moghtech/komodo-core","tag":"pinned 2.1.0 via COMPOSE_KOMODO_IMAGE_TAG default","port":9120,"note":"covers VMs/Docker/Komodo/** broadly, so Caddy/Pi-hole config commits also touch this node; the dns-stack node owns their content"}
 ---
 
